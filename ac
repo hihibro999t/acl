@@ -1,5 +1,5 @@
 Kaitun = true
-if Kaitun then
+ if Kaitun then
     _G.Teams = "Pirate"
     _G.Auto_Farm_Level = true
     _G.Double_Quest = true
