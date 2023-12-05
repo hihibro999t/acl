@@ -26,7 +26,11 @@ repeat wait() until game.Player.LocalPlayer.PlayerGui:FindFirstChild("Main");
 repeat wait() until game:GetService("Player")
 repeat wait() until game:GetService("Player").LocalPlayer .Character:FindFirstChild("Energy")
 repeat wait()
-        
+    
+    wait(1)
+
+    if not game:IsLoaded() then repeat game.Loaded:Wait() until game:IsLoaded() end
+
     if getgenv:GetService("Player").LocalPlayer.PlayerGui:WaitForChild("Main").ChooseTeam.Visible == true then
         if getgenv().Setting["Join Team"] == "Pirate" then
             game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton.Size = UDim2.new(0, 10000, 0, 10000)
