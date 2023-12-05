@@ -1,5 +1,4 @@
 _G.Kaitun = true
-    repeat wait() until game:IsLoaded()
     if getgenv().Setting() then 
     else
         if _G.Kaitun then
@@ -1350,3 +1349,4 @@ spawn(function()
                     end                                          
                     end                 
                     end)
+
