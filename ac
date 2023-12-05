@@ -944,5 +944,24 @@ spawn(function()
         end
     end
 end)
+
+spawn(function()
+    game:GetService("RunService").RenderStepped:Connect(function()
+     pcall(function()
+         if _G.AutoFarm then
+             CheckQuest()
+ if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
+    local a = {
+        [1] = "StartQuest",
+        [2] = NameQuest,
+        [3] = LevelQuest
+    }   
     
+    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(a))
+end
+end
+end)
+end)
+end)
+   
 
