@@ -880,3 +880,74 @@ task.spawn(function()
 		end)
 	end
 end)
+
+spawn(function()
+    while wait() do
+        if AutoFarm then
+            pcall(function()
+            CheckQuest()
+    if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest",QuestName,LevelQuest)
+    TP(CFrameMon)
+    elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
+        if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,NameMon) then
+            for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                if v.Name == Name and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid")   then
+                    if v.Humanoid.Health > 0 then
+                    repeat wait()
+                        _G.PosMon = v.HumanoidRootPart.CFrame
+                        Equip(WeaponName)
+                        AutoHaki()
+                        HealthMin = v.Humanoid.MaxHealth * 100 / 100
+                        Magma = (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)
+                            if v.Humanoid.Health > HealthMin then
+                        Distance = (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude 
+                        Speed = 300 
+                        tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear)
+                        tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)})
+                        tween:Play() 
+                        else
+                        Distance = (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude 
+                        Speed = 300 
+                        tweenService, tweenInfo = game:GetService("TweenService"), TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear)
+                        tween = tweenService:Create(game:GetService("Players")["LocalPlayer"].Character.HumanoidRootPart, tweenInfo, {CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0,30,0)})
+                        tween:Play()
+                            end
+                        v.HumanoidRootPart.Size = Vector3.new(60,60,60)
+                            v.HumanoidRootPart.CanCaillde = false
+                        until AutoFarm == false or v.Humanoid.Health <= 0
+                        else
+                            wait(1)
+                            TP(CFrameMon)
+                       
+                    if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,NameMon) then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                    end
+                    if game.Players.LocalPlayer.Character.Humanoid.Health <= 0 then
+                            AutoFarm = false
+                            wait(3)
+                            AutoFarm = true
+                            end
+                        end
+                    end
+                end
+            end
+        end
+       end)
+    end
+end
+end)
+    
+    spawn(function()
+    game:GetService("RunService").Heartbeat:Connect(function()
+        if AutoFarm then
+        if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid") then
+            setfflag("HumanoidParallelRemoveNoPhysics", "False")
+            setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
+            game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState(11)
+            end
+        end
+    end)
+    end)
