@@ -776,5 +776,107 @@ end
     end
 end
 
+QuestStatus = AutoFarm:AddLabel("Quest:")
+
+spawn(function()
+    while task.wait() do
+        CheckQuest()
+        if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,NameMon) then
+                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                end
+        QuestStatus:SetText("Quest : "..QuestName.." | Level "..LevelQuest)
+end
+end)
+LevelFarm = AutoFarm:AddLabel("Hello")
+task.spawn(
+    function()
+        pcall(
+            function()
+                while wait() do
+                    LevelFarm:SetText("Level : " .. game:GetService("Players").localPlayer.Data.Level.value)
+                end
+            end
+        )
+    end
+)
+-- AutoFarmToggle
+AutoFarm:AddToggle('AutoFarmLevel', {
+    Text = 'Auto Farm [Level]',
+    Default = _G.SaveSetting.AutoFarm,
+})
+AutoFarm:AddToggle('AutoFarmSky', {
+    Text = 'Auto Farm [Skypiea]',
+    Default = _G.SaveSetting.AutoFarmSky,
+})
+AutoFarm:AddToggle('NewWorld', {
+    Text = 'Auto New World',
+    Default = _G.SaveSetting.AutoNewWorld,
+})
+
+Toggles.NewWorld:OnChanged(function(t)
+    _G.SaveSetting.AutoNewWorld = t
+    savesettings()
+end)
+
+Toggles.AutoFarmLevel:OnChanged(function(t)
+    _G.SaveSetting.AutoFarm = t
+
+    AutoFarm = t
+    Bringmob = t
+            savesettings()
+end)
+
+Weapon = {
+	"Melee",
+	"Sword",
+	"Devil Fruit"
+}
 
 
+SettingGeneral:AddDropdown('SelectWeaponDropdown', {
+    Values = Weapon,
+    Default = "Melee",
+    Multi = false,
+    Text = 'Select Weapon / Weapons',
+	Tooltip = 'Select your weapon',
+})
+
+task.spawn(function()
+	while wait() do
+		pcall(function()
+			if SelectWeapon == "Melee" then
+				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+					if v.ToolTip == "Melee" then
+						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+							WeaponName = v.Name
+						end
+					end
+				end
+			elseif SelectWeapon == "Sword" then
+				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+					if v.ToolTip == "Sword" then
+						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+							WeaponName = v.Name
+						end
+					end
+				end
+			elseif SelectWeapon == "Devil Fruit" then
+				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+					if v.ToolTip == "Blox Fruit" then
+						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+							WeaponName = v.Name
+						end
+					end
+				end
+			else
+				for i ,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+					if v.ToolTip == "Melee" then
+						if game.Players.LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
+							WeaponName = v.Name
+						end
+					end
+				end
+			end
+		end)
+	end
+end)
